@@ -38,7 +38,7 @@ public class User implements Serializable {
 
     //bi-directional many-to-one association to SenderConfig
     @JsonIgnore
-    @OneToMany(mappedBy="senderConfig")
+    @OneToMany(mappedBy="user")
     private List<SenderConfig> senders;
 
 	//bi-directional many-to-many association to Role

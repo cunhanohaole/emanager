@@ -15,6 +15,19 @@ EManager.General = {
 				EManager.General.populateGroupComboBox(data, comboBoxSelector);
         	});
 		},
+
+		loadSendersForUser : function(comboBoxSelector){
+		    $.get("/email-manager/senderConfig/listSendersForUser", function(data){
+                var senders = data.rows;
+                if(senders != null && senders.length > 0){
+                    for(var i = 0; i < senders.length; i++){
+                        var o = new Option(senders[i].id, senders[i].from);
+                        $(o).html(senders[i].from);
+                        $(comboBoxSelector).append(o);
+                    }
+                }
+            });
+		},
 		
 		populateGroupComboBox : function(data, comboBoxSelector) {
 			$(comboBoxSelector).html('');

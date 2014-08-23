@@ -12,7 +12,7 @@ public interface EMailManager {
 
     void sendEmail(Integer senderId, Integer groupId, String subject, String body, String additionalEmails, List<Attachment> attachments) throws TechnicalException;
 
-	List<Email> listSentEmails(int page, int numberOfRowsPerPage);
+    List<Email> listSentEmails(Integer senderConfigId, int page, int numberOfRowsPerPage);
 
 	Email loadEmail(int emailId);
 

@@ -166,9 +166,12 @@ public class EmailController extends BaseController {
 	}
 	
 	@RequestMapping(value = "listSentEmails", method = RequestMethod.GET)
-	public @ResponseBody JqGridResponse<Email> listSentEmails(@RequestParam(value = "rowsPerPage") String rowsPerPage, @RequestParam(value = "page") String page){
+	public @ResponseBody JqGridResponse<Email> listSentEmails(
+            @RequestParam(value = "senderConfigId", required = false) Integer senderConfigId,
+            @RequestParam(value = "rowsPerPage") String rowsPerPage,
+            @RequestParam(value = "page") String page){
 		JqGridResponse<Email> response = new JqGridResponse<Email>();
-		List<Email> emails = eMailManager.listSentEmails(Integer.parseInt(page), Integer.parseInt(rowsPerPage));
+		List<Email> emails = eMailManager.listSentEmails(senderConfigId, Integer.parseInt(page), Integer.parseInt(rowsPerPage));
 		Collections.sort(emails);
 		response.setRows(emails);
 		int numberOfPages = eMailManager.getNumberOfPagesForSentEmails(Integer.parseInt(rowsPerPage));

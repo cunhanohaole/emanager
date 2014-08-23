@@ -14,7 +14,6 @@ EManager.SentEmails = {
 				mtype: 'GET',
 				loadError: function(){},
 				height: 'auto',
-				colNames:['Assunto', 'Para', 'Data', 'Contem anexo?', '', '', ''],
 				gridview:false,
 				afterInsertRow : function(rowid, rowdata, rowelem){
 					if(rowdata.statusFailure) {
@@ -24,8 +23,10 @@ EManager.SentEmails = {
 						$("#sentEmailsGrid #" + rowid).find("td").addClass("alert-success");
 					}
 				},
+				colNames:['Assunto', 'De', 'Para', 'Data', 'Contem anexo?', '', '', ''],
 				colModel: [
 					 {name:'subject', index:'subject', sortable: 'true'},
+					 {name:'senderConfig.from', index:'senderConfig.from', sortable: 'true', width: 70},
 				     {name:'addressGroup.title', index:'addressGroup.title', sortable: 'true', width: 70},
 				     {name:'createdTimeStamp', index:'createdTimeStamp', sortable: 'true', width: 40, formatter: formatToJavaToStringDate},
 				     {name:'containAttachments', index:'containAttachments', sortable: 'false', width: 20, formatter: formatYesOrNo},

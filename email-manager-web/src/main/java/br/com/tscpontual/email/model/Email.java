@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.com.tscpontual.user.model.SenderConfig;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import br.com.tscpontual.contacts.model.AddressGroup;
@@ -47,9 +48,14 @@ public class Email implements Serializable, Comparable<Email> {
 	
 	@Column(name="created_timestamp")
 	private Timestamp createdTimeStamp;
-	
+
+    @Deprecated
 	@Column(name="user_stamp")
 	private String userStamp;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_config_id")
+    private SenderConfig senderConfig;
 	
 	private boolean success;
 	
@@ -187,7 +193,15 @@ public class Email implements Serializable, Comparable<Email> {
 		this.status = status;
 	}
 
-	@Override
+    public SenderConfig getSenderConfig() {
+        return senderConfig;
+    }
+
+    public void setSenderConfig(SenderConfig senderConfig) {
+        this.senderConfig = senderConfig;
+    }
+
+    @Override
 	public int compareTo(Email email) {
 		return email.getCreatedTimeStamp().compareTo(createdTimeStamp);
 	}

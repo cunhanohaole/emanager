@@ -4,6 +4,7 @@ EManager.NewEmail = {
 			EManager.NewEmail.addFile();
 			EManager.NewEmail.removeAttachment();
 			EManager.General.loadGroupsForUser("#newEmailGroupList");
+			EManager.General.loadSendersForUser("#senderList");
 			EManager.NewEmail.sendEmail();
 			EManager.NewEmail.loadSignatures();
 			EManager.NewEmail.insertSignature();

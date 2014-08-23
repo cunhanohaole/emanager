@@ -1,18 +1,9 @@
 package br.com.tscpontual.email.manager;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import br.com.tscpontual.contacts.dao.ContactsDAO;
 import br.com.tscpontual.contacts.model.AddressGroup;
 import br.com.tscpontual.email.dao.EmailDAO;
+import br.com.tscpontual.email.dao.SenderConfigDAO;
 import br.com.tscpontual.email.model.Attachment;
 import br.com.tscpontual.email.model.Email;
 import br.com.tscpontual.email.model.EmailStatusEnum;
@@ -23,10 +14,17 @@ import br.com.tscpontual.service.MailProviderAPIClient;
 import br.com.tscpontual.service.mailjet.model.EmailBounceItem;
 import br.com.tscpontual.service.mailjet.model.EmailBounces;
 import br.com.tscpontual.service.mailjet.model.ReportEmailBounceResponse;
-import br.com.tscpontual.user.dao.UserDAO;
 import br.com.tscpontual.user.model.SenderConfig;
-import br.com.tscpontual.user.model.User;
 import br.com.tscpontual.util.SecurityHelper;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class EmailManagerImpl implements EMailManager {
 
@@ -37,9 +35,9 @@ public class EmailManagerImpl implements EMailManager {
 	
 	@Autowired
 	private ContactsDAO contactsDAO;
-	
-	@Autowired
-	private UserDAO userDAO;
+
+    @Autowired
+    private SenderConfigDAO senderConfigDAO;
 	
 	@Autowired
 	private EmailService emailService;
@@ -53,7 +51,7 @@ public class EmailManagerImpl implements EMailManager {
 	@Override
 	public void sendEmail(Integer senderId, Integer groupId, String subject, String body, String additionalEmails, List<Attachment> attachments) throws TechnicalException {
 		String loggedUserName = SecurityHelper.getUserName();
-		SenderConfig senderConfig = userDAO.loadSenderConfig(senderId);
+		SenderConfig senderConfig = senderConfigDAO.getSenderConfig(senderId);
 		if(senderConfig != null){
 			Email email = new Email();
 			email.setAddressGroup(new AddressGroup(groupId));
@@ -85,9 +83,9 @@ public class EmailManagerImpl implements EMailManager {
 	}
 
 	@Override
-	public List<Email> listSentEmails(int page, int numberOfRowsPerPage) {
+	public List<Email> listSentEmails(Integer senderConfigId, int page, int numberOfRowsPerPage) {
 		int fistResult = numberOfRowsPerPage * (page - 1);
-		return emailDAO.listSentEmails(SecurityHelper.getUserName(), fistResult, numberOfRowsPerPage);
+		return emailDAO.listSentEmails(SecurityHelper.getUserName(), senderConfigId, fistResult, numberOfRowsPerPage);
 	}
 	
 	@Override
@@ -98,7 +96,7 @@ public class EmailManagerImpl implements EMailManager {
 	@Override
 	public void forwardEmail(Integer senderId, Integer emailId, Integer newGroupId) throws TechnicalException {
 		String loggedUserName = SecurityHelper.getUserName();
-		SenderConfig senderConfig = userDAO.loadSenderConfig(senderId);
+		SenderConfig senderConfig = senderConfigDAO.getSenderConfig(senderId);
 		Email email = emailDAO.loadEmailDetached(emailId);
 		if(senderConfig != null){
 			email.setAddressGroup(new AddressGroup(newGroupId));

@@ -37,6 +37,9 @@
 	<bean id="usersManager" class="br.com.tscpontual.user.manager.UserManagerImpl">
 	</bean>
 
+    <bean id="senderConfigManager" class="br.com.tscpontual.email.manager.SenderConfigManagerImpl">
+    </bean>
+
     <!-- ====================================================================================== -->
     <!-- Properties -->
     <!-- ====================================================================================== -->
