@@ -58,6 +58,7 @@
 							<li><a href="#newUserDiv" data-toggle="tab" onclick="EManager.Main.showNewUser()">Criar usuario</a></li>
 							<li><a href="#listUsersDiv" data-toggle="tab" onclick="EManager.Main.showUsersList()">Lista de usuarios</a></li>
 							<li><a href="#contactAccessDiv" data-toggle="tab" onclick="EManager.Main.showContactAccess()">Acesso a Contatos</a></li>
+							<li><a href="#sendersManagementDiv" data-toggle="tab" onclick="EManager.Main.showSendersManagement()">Cadastro de enviadores</a></li>
 							<li class="divider"></li>
 						</sec:authorize>
 					</ul>
@@ -90,6 +91,8 @@
 					</div>
 					<div class="tab-pane" id="contactAccessDiv">
 					</div>
+					<div class="tab-pane" id="sendersManagementDiv">
+                    </div>
 				</div>
 			</div>
 		</div>
@@ -98,7 +101,7 @@
 				<b> Build: 2.0.4</b>
 			</div>
 			<div class="row-fluid" align="center">
-				© F-Alves Information Technology.
+				F-Alves Information Technology.
 			</div>
 		</footer>
 	</body>

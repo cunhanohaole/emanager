@@ -5,11 +5,15 @@ EManager.SentEmails = {
 		init : function() {
 			EManager.SentEmails.loadTable();
 			EManager.SentEmails.forwardEmail();
+			EManager.General.loadSendersForUser("#sentEmailsSenders");
+			EManager.SentEmails.setupFromFilterOnClick();
 		},
 
 		loadTable : function() {
+		    $("#sentEmailsGrid").jqGrid('GridUnload');
+		    var senderId = $("#sentEmailsSenders").val();
 			jQuery("#sentEmailsGrid").jqGrid({
-				url:"/email-manager/email/listSentEmails?rowsPerPage=" + EManager.SentEmails.numberOfRowsPerPage,
+				url:"/email-manager/email/listSentEmails?senderConfigId=" + senderId + "&rowsPerPage=" + EManager.SentEmails.numberOfRowsPerPage,
 				datatype: "json",
 				mtype: 'GET',
 				loadError: function(){},
@@ -86,6 +90,12 @@ EManager.SentEmails = {
 				var emailId = $('#emailId').val();
 				$("#newEmailLink").trigger("click", emailId);
 			});
+		},
+
+		setupFromFilterOnClick : function () {
+		    $("#sentEmailsSenders").live("change", function (){
+                EManager.SentEmails.loadTable();
+		    });
 		}
 
 }

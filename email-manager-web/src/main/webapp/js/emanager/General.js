@@ -3,6 +3,23 @@ EManager.General = {
 
 		init : function (){
 		},
+
+        loadUsers : function(comboBoxSelector) {
+            $.ajax({
+                type: "GET",
+                url: "/email-manager/users/list",
+                dataType: "json",
+                async: false,
+                success: function(result)
+                {
+                    var users = result.rows;
+                    for(i in users) {
+                        var username = users[i].username;
+                        $(comboBoxSelector).append(new Option(username, username));
+                    }
+                }
+            });
+        },
 		
 		loadGroups : function(comboBoxSelector) {
 			$.get("/email-manager/contacts/listGroups", function(data){
@@ -21,7 +38,7 @@ EManager.General = {
                 var senders = data.rows;
                 if(senders != null && senders.length > 0){
                     for(var i = 0; i < senders.length; i++){
-                        var o = new Option(senders[i].id, senders[i].from);
+                        var o = new Option(senders[i].from, senders[i].id);
                         $(o).html(senders[i].from);
                         $(comboBoxSelector).append(o);
                     }

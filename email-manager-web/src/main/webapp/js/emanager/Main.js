@@ -58,6 +58,10 @@ EManager.Main = {
 		
 		showContactAccess : function() {
 			$("#contactAccessDiv").load("/email-manager/users/loadContactAccess");
+		},
+
+		showSendersManagement : function() {
+		    $("#sendersManagementDiv").load("/email-manager/senderConfig/sendersManagement");
 		}
 		
 }

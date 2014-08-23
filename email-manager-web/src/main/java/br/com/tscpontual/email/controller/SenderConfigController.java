@@ -6,8 +6,10 @@ import br.com.tscpontual.user.model.SenderConfig;
 import br.com.tscpontual.util.JqGridResponse;
 import br.com.tscpontual.util.ScreenResponse;
 import br.com.tscpontual.util.SecurityHelper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,9 +28,12 @@ public class SenderConfigController extends BaseController {
 
     @RequestMapping(value = "listSendersForUser", method = GET)
     @ResponseBody
-    public JqGridResponse<SenderConfig> listSendersForUser() {
+    public JqGridResponse<SenderConfig> listSendersForUser(
+            @RequestParam(value = "username", required = false) String userName) {
         JqGridResponse<SenderConfig> response = new JqGridResponse<SenderConfig>();
-        String userName = SecurityHelper.getUserName();
+        if(StringUtils.isBlank(userName)) {
+            userName = SecurityHelper.getUserName();
+        }
         List<SenderConfig> list = senderConfigManager.getSenderConfigListForUser(userName);
         response.setRows(list);
         response.setRecords(Long.valueOf(list.size()).toString());
@@ -50,6 +55,11 @@ public class SenderConfigController extends BaseController {
     public ScreenResponse deleteSenderConfig(@RequestParam(value = "senderConfigId") Integer senderConfigId) {
         senderConfigManager.deleteSenderConfig(senderConfigId);
         return new ScreenResponse("Secesso!", "Enviador deleteado com sucesso!");
+    }
+
+    @RequestMapping(value = "sendersManagement", method = GET)
+    public String loadSendersManagement() {
+        return "sender/senderManagement";
     }
 
 }
