@@ -51,13 +51,12 @@ public class EmailManagerImpl implements EMailManager {
 	private MailProviderAPIClient mailProviderAPIClient;
 
 	@Override
-	public void sendEmail(String groupId, String subject, String body, String additionalEmails, List<Attachment> attachments) throws TechnicalException {
+	public void sendEmail(Integer senderId, Integer groupId, String subject, String body, String additionalEmails, List<Attachment> attachments) throws TechnicalException {
 		String loggedUserName = SecurityHelper.getUserName();
-		User user = userDAO.loadUser(loggedUserName);
-		SenderConfig senderConfig = user.getSenderConfig();
+		SenderConfig senderConfig = userDAO.loadSenderConfig(senderId);
 		if(senderConfig != null){
 			Email email = new Email();
-			email.setAddressGroup(new AddressGroup(Integer.parseInt(groupId)));
+			email.setAddressGroup(new AddressGroup(groupId));
 			email.setSubject(subject);
 			email.setBody(body.getBytes());
 			email.setAdditionalContacts(additionalEmails);
@@ -97,10 +96,9 @@ public class EmailManagerImpl implements EMailManager {
 	}
 	
 	@Override
-	public void forwardEmail(Integer emailId, Integer newGroupId) throws TechnicalException {
+	public void forwardEmail(Integer senderId, Integer emailId, Integer newGroupId) throws TechnicalException {
 		String loggedUserName = SecurityHelper.getUserName();
-		User user = userDAO.loadUser(loggedUserName);
-		SenderConfig senderConfig = user.getSenderConfig();
+		SenderConfig senderConfig = userDAO.loadSenderConfig(senderId);
 		Email email = emailDAO.loadEmailDetached(emailId);
 		if(senderConfig != null){
 			email.setAddressGroup(new AddressGroup(newGroupId));

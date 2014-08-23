@@ -37,10 +37,10 @@ public class UserManagerImpl implements UserManager {
 		List<Role> roles = new ArrayList<Role>(1);
 		roles.add(role);
 		user.setRoles(roles);
-		SenderConfig senderConfig = senderConfigFactory.create(emailAccount);
-		senderConfig = userDAO.persistSenderConfig(senderConfig);
-		user.setSenderConfig(senderConfig);
-		return userDAO.persistUser(user);
+        user = userDAO.persistUser(user);
+        SenderConfig senderConfig = senderConfigFactory.create(user, emailAccount);
+        userDAO.persistSenderConfig(senderConfig);
+        return user;
 	}
 	
 	@Override
@@ -53,9 +53,6 @@ public class UserManagerImpl implements UserManager {
 		roles.clear();
 		Role role = userDAO.loadRole(userRole);
 		roles.add(role);
-		SenderConfig senderConfig = user.getSenderConfig();
-		senderConfig.setFrom(emailAccount);
-		senderConfig = userDAO.persistSenderConfig(senderConfig);
 		return userDAO.persistUser(user);
 	}
 	

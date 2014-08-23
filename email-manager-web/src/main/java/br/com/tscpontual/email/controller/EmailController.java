@@ -122,7 +122,9 @@ public class EmailController extends BaseController {
 	}
 	
 	@RequestMapping(value = "send", method = RequestMethod.POST)
-	public @ResponseBody boolean sendEmail(@RequestParam(value = "groupId") String groupId,
+	public @ResponseBody boolean sendEmail(
+            @RequestParam(value = "senderId") Integer senderId,
+            @RequestParam(value = "groupId") Integer groupId,
 			@RequestParam(value = "additionalEmails") String additionalEmails,
 			@RequestParam(value = "emailBody") String emailBody,
 			@RequestParam(value= "emailSubject") String emailSubject,
@@ -134,7 +136,7 @@ public class EmailController extends BaseController {
 			if(element != null){
 				attachments = (List<Attachment>) element.getValue();
 			}
-			eMailManager.sendEmail(groupId, emailSubject, emailBody, additionalEmails, attachments);
+			eMailManager.sendEmail(senderId, groupId, emailSubject, emailBody, additionalEmails, attachments);
 			return true;
 		} catch (Exception e) {
 			log.error("Error while seding the email: ", e);
@@ -181,10 +183,12 @@ public class EmailController extends BaseController {
 		return eMailManager.loadEmail(Integer.parseInt(emailId));
 	}
 	
-	public @ResponseBody boolean forwardEmail(@RequestParam(value = "emailId") String emailId,
-			@RequestParam(value = "groupId") String groupId){
+	public @ResponseBody boolean forwardEmail(
+            @RequestParam(value = "senderId") Integer senderId,
+            @RequestParam(value = "emailId") Integer emailId,
+			@RequestParam(value = "groupId") Integer groupId){
 		try {
-			eMailManager.forwardEmail(Integer.parseInt(emailId), Integer.parseInt(groupId));
+			eMailManager.forwardEmail(senderId, emailId, groupId);
 			return true;
 		} catch (TechnicalException e) {
 			log.error("Error while seding forwarding the email: ", e);

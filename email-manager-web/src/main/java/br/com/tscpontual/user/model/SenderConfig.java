@@ -48,15 +48,16 @@ public class SenderConfig implements Serializable {
 
 	private String username;
 
-	//bi-directional many-to-one association to User
-	@JsonIgnore
-	@OneToMany(mappedBy="senderConfig")
-	private List<User> users;
+    //bi-directional many-to-one association to SenderConfig
+    @ManyToOne
+    @JoinColumn(name="user_username")
+    private User user;
 
 	public SenderConfig() {
 	}
 
-	public SenderConfig(String username, String password, String hostname, String from, String mailSmtpPort, boolean mailSmtpAuth) {
+	public SenderConfig(User user, String username, String password, String hostname, String from, String mailSmtpPort, boolean mailSmtpAuth) {
+        this.user = user;
 		this.hostname = hostname;
 		this.password = password;
 		this.username = username;
@@ -153,12 +154,11 @@ public class SenderConfig implements Serializable {
 		this.username = username;
 	}
 
-	public List<User> getUsers() {
-		return this.users;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

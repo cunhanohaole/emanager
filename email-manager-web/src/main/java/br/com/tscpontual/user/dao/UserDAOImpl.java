@@ -73,4 +73,9 @@ public class UserDAOImpl implements UserDAO {
 		return em.find(Signature.class, signatureId);
 	}
 
+    @Override
+    public SenderConfig loadSenderConfig(Integer senderConfigId) {
+        return em.find(SenderConfig.class, senderConfigId);
+    }
+
 }
