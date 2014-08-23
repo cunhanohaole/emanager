@@ -1,0 +1,6 @@
+# Created by .gitignore support plugin (hsz.mobi)
+*.iml
+*/target/**
+.idea
+target/
+email-manager-web/target

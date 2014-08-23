@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.com.tscpontual</groupId>
+    <artifactId>email-manager-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>email-manager</name>
+
+    <modules>
+        <module>email-manager-web</module>
+    </modules>
+
+    <properties>
+		<applicationname>email-manager</applicationname>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.6</jdk.version>
+        <buildNumber>1</buildNumber>
+        <spring-security.version>3.0.5.RELEASE</spring-security.version>
+        <spring.version>3.1.2.RELEASE</spring.version>
+		<hibernate.version>4.1.7.Final</hibernate.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		
+		<repo.base.url>http://corporatebuild.stage.fcltest/nexus</repo.base.url>
+        <repo.public.url>${repo.base.url}/content/groups/public</repo.public.url>
+    </properties>
+
+<!--     <repositories>
+		<repository>
+            <id>EluminaNexus</id>
+            <name>Elumina Public Mirror</name>
+            <url>${repo.public.url}</url>
+        </repository>
+    </repositories>
+	
+	<pluginRepositories>
+        <pluginRepository>
+            <id>EluminaNexus</id>
+            <name>Elumina Public Mirror</name>
+            <url>${repo.public.url}</url>
+        </pluginRepository>
+    </pluginRepositories> -->
+
+    <build>
+        <plugins>
+            <!-- Set Java compiler version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Maven currently doesn't replace properties in the distributed pom.xml files, so
+               we need to force the use of pom.xml files with properties replaced in order to get the
+               version number included correctly. This is mostly adapted from
+               http://www.axelfontaine.com/2011/01/maven-releases-on-steroids-2-preparing.html
+               If this is ever fixed (see bug reports linked in above page), this should be removed. -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>replace-pom-placeholders</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}</directory>
+                                    <includes>
+                                        <include>pom.xml</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.directory}/filtered-pom</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>overwrite-pom</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <packaging>pom</packaging>
+                            <file>${project.build.directory}/filtered-pom/pom.xml</file>
+                            <pomFile>${project.build.directory}/filtered-pom/pom.xml</pomFile>
+                            <url>${repo.release.url}</url>
+                            <version>${project.version}</version>
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                            <uniqueVersion>false</uniqueVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- End pom.xml property replacement configuration -->
+        </plugins>
+    </build>
+
+</project>

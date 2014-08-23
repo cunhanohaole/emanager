@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       ">
+
+    <!-- Banking file batch run or copy data from core batch run -->
+    <task:scheduler id="taskScheduler" pool-size="5"/>
+    <task:executor id="taskExecutor" pool-size="5"/>
+    <task:annotation-driven executor="taskExecutor" scheduler="taskScheduler"/>
+    <task:executor id="taskExecutorMailSuppliers" pool-size="5"/>
+    
+    <!-- Executor for checking invalid emails -->
+    <task:executor id="checkInvalidEmailsTaskExecutor" pool-size="1"/>
+
+    <!-- Definition of jobs to be run by Quartz -->
+    <bean id="timeZone" class="java.util.TimeZone" factory-method="getTimeZone">
+        <constructor-arg value="${applicationserver.timezone}" />
+    </bean>
+
+</beans>

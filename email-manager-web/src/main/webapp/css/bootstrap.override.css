@@ -1,0 +1,404 @@
+/*
+CSS file meant to override the bootstrap css without changing it.
+Making easier to update the framework in the future
+*/
+body {
+	padding: 6px;
+	background-color: #F0F0F0;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 16px;
+}
+label, input, button, select, textarea {
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 16px;
+}
+table {
+	border-collapse: separate;
+}
+/* remove stupid orange border for selected link */
+a:focus {
+	outline: 0;
+}
+.searchForm legend{
+	margin-bottom: 20px;
+	line-height: 32px;
+}
+/*Application header*/
+.navbar{
+	margin-bottom: 8px;
+}
+.mainContainer {
+	background-color: #FFFFFF;
+	padding: 10px;
+}
+.footer {
+	padding: 10px;
+}
+.navbar .nav > li > a:hover{
+	color: #000000;
+}
+/*Top navigation*/
+.navbar .brand {
+	padding: 3px 10px 1px;
+}
+.navbar .divider-vertical {
+	background-color: #F5F5F5;
+	border-right: 1px solid #F0F0F0;
+	height: 38px;
+	margin: 1px 6px;
+}
+/*close button on the top navigation*/
+.navbar .nav > li > a {
+	float: left;
+}
+.navbar .nav > li > a.close {
+    padding-left: 1px;
+    padding-right: 2px;
+}
+/*more companies top navigation*/
+.dropdown-menu a {
+	clear: none;
+}
+
+/*forms*/
+.form-horizontal .controls {
+	margin-left: 134px;
+}
+.form-horizontal .control-group {
+	margin-bottom: 12px;
+}
+.form-horizontal .control-label {
+	width: 160px;
+}
+/*remove bootstrap bad coloring of active tab and shadows on menubars*/
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+    color: #000;
+    background-color: inherit;
+}
+.navbar .nav > li > a {
+    text-shadow: inherit;
+}
+
+/*quicklinks drop on hover*/
+ul.nav li.dropdown.quicklinks:hover ul.dropdown-menu,
+ul.nav li.dropdown.quicklinks:hover ul.dropdown-menu:hover {
+    display: block;    
+}
+/*POgliani :: align objects with bootstrap input/select elements */ 
+.alignMiddleToFormElement{
+	padding-top: 5px;
+}
+input[type="checkbox"].alignMiddleToFormElement{
+	margin-top: 6px;
+}
+/* POgliani :: BootStrap Grid Ajustment - To be used when you want to revome the negative padding the bootstrap row padding has */
+.removeLeftPaddingInRow{
+	margin-left: 0;
+}
+.removeLeftMarginInSpan{
+	margin-left: 0;
+}
+/* row overwrites */
+.row.qd [class*="span"], .row-fluid.qd [class*="span"] {
+    margin-left: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.row.qd select, .row.qd textarea, .row.qd input, .row.qd label,
+.row-fluid.qd select, .row-fluid.qd textarea, .row-fluid.qd input, .row-fluid.qd label {
+    margin: 0;
+}
+.row.qd input[type="radio"].option, .row-fluid.qd input[type="radio"].option {
+	vertical-align: text-top;
+}    
+.row.qd label.option, .row-fluid.qd label.option {
+	margin: 4px;
+	display: inline;
+}    
+.row.qd select[class*="span"], .row.qd textarea[class*="span"], .row.qd input[class*="span"], .row.qd label[class*="span"],
+.row-fluid.qd select[class*="span"], .row-fluid.qd textarea[class*="span"], .row-fluid.qd input[class*="span"], .row-fluid.qd label[class*="span"] {
+    margin: 0;
+}
+.row.qd.taxes-header h5, .row-fluid.qd.taxes-header h5 {
+    display: inline-block;
+}
+.row.qd.taxes-header .btn, .row-fluid.qd.taxes-header .btn {
+    margin: 0px 0px 6px 20px;
+}
+.row.qd hr, .row-fluid.qd hr {
+    margin: 10px;
+}
+.row.qd h5, .row-fluid.qd h5 {
+	font-size: 15px;
+}
+.row.qd legend, .row-fluid.qd legend {
+	margin-bottom: 10px;
+}
+/*aligning buttons without label*/
+.row.qd .labelSpace, .row-fluid.qd .labelSpace {
+	margin-top: 16px;
+}
+
+/*button sizes*/
+.input-xmini {
+  width: 40px;
+}
+.input-xxmini {
+  width: 20px;
+}
+/*textboxes for datetimepicker and other cases when med is too big and small is too small*/
+.input-medsmall {
+	width: 135px;
+}
+
+.listOption {
+  width: 150px;
+}
+
+.div-space {
+	padding-left: 10px;
+}
+
+.input-xxzlarge {
+	width: 480px;
+}
+
+.input-xxzzlarge {
+	width: 480px;
+	height: 80px;
+}
+/*shading is nice but doesn't work together with jquery dialogs*/
+/*.modal-backdrop {
+	background: none;
+	z-index: 0;
+}*/
+/* header a bit smaller and with a line to separate from main content*/
+h4 {
+	font-size: 18px;
+	line-height: 20px;
+	padding-bottom: 4px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #EEE;
+	font-weight: normal;
+	padding-left: 10px;
+}
+/*documentation tab hor scroll fix*/
+.tab-content {
+	overflow: inherit;
+}
+/* dataCatalog dropdown 
+.dataCatalog .dropdown:hover ul.dropdown-menu,
+.dataCatalog .dropdown:hover ul.dropdown-menu:hover {
+    display: block;    
+}*/
+.dataCatalog .dropdown {
+	line-height: 24px;
+}
+.dataCatalog .dropdown-menu {
+	padding: 10px 0 10px 0;
+}
+.dataCatalog .dropdown-menu [class*="span"] {
+	margin: 0;
+}
+.dataCatalog a.dropdown-toggle {
+	font-size: 18px;
+	padding: 0;
+	margin: 6px;
+}
+.dataCatalog a.dropdown-toggle i {
+	margin: 0;
+	margin-right: 4px;
+	vertical-align: baseline;
+}
+.modal.quickImport {
+	z-index: 1001;	
+}
+/*
+.modal.iframeDialog 
+{
+    width: 988px;
+    max-height: 620px;
+    margin-top:-280px;
+    margin-left:-495px; 
+}
+
+.modal-body.iframeDialogBody
+{
+     max-height: 520px;
+     padding: 0;
+}
+
+.modal.iframeDialogProvider
+{
+    width: 600px;
+    max-height: 620px;
+}
+
+.modal-body.iframeDialogBodyProvider
+{
+     max-height: 500px;
+}
+
+.modal.serviceFeeDialog
+{
+    width: 988px;
+    max-height: 500px;
+    margin-top:-280px;
+    margin-left:-495px; 
+}
+
+.modal.costingDialog 
+{
+    width: 1000px;
+    max-height: 672px;
+    margin-top:-338px;
+    margin-left:-500px; 
+}
+
+.modal-body.costingDialogBody
+{
+     max-height: 500px;
+}
+*/
+.costingDialog .navbar-inner
+{
+    width: 93%;    
+}
+
+.costingDialog .row.qd [class*="span"], .costingDialog .row-fluid.qd [class*="span"]
+{
+    margin-bottom: 4px;    
+}
+/*
+.modal.segmentsPanelContainerDialog
+{
+    width: 970px;
+    max-height: 500px;
+    margin-top:-280px;
+    margin-left:-495px; 
+}
+*/
+/* fix input textboxes not being editable inside jquery modal dialogs */
+.input-prepend input:focus,
+.input-append input:focus,
+.input-prepend select:focus,
+.input-append select:focus,
+.input-prepend .uneditable-input:focus,
+.input-append .uneditable-input:focus {
+  position: inherit;
+}
+/*Fix the uneditable inputs*/
+.uneditable-input, .uneditable-textarea {
+	color: #999;
+	cursor: not-allowed;
+	background-color: #FCFCFC;
+	border-color: #CCC;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+	-moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+}
+.mHover:hover{
+	cursor: move;
+}
+/*.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: auto;
+  margin: -250px 0 0 -280px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+
+ /* -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}*/
+
+input[type="radio"]
+	{
+	margin-top: 1px!important;
+}
+select 
+{
+    height: 25px;
+    padding: 1px;
+    margin: 1px;
+}
+
+.dropdown-menu
+{
+    margin:0px 0 0;
+}
+
+
+#customisedNav.nav-tabs > .active > a, #customisedNav.nav-tabs > .active > a:hover {
+	border: 1px solid #D4D4D4;
+	-webkit-border-radius: 4px, 0px, 4px, 0px;
+	-moz-border-radius: 4px, 0px, 4px, 0px;
+	border-radius: 4px, 0px, 4px, 0px;
+	border-bottom-color: transparent;
+	cursor:auto !important;
+}
+
+#customisedNav.nav-tabs  a input
+{
+	margin-top:-2px!important;
+	
+}
+#customisedNav.nav-tabs  a , #customisedNav.nav-tabs  a label
+{
+	cursor:pointer !important;
+	
+}
+#customisedNav.nav-raised
+{
+	margin-bottom: 0px !important;
+	border-bottom:0px;
+}
+
+#customisedNav.nav-raised li a
+{
+	margin-bottom: 0px 
+}
+
+.tab-content-raised
+{
+	background-color: #FAFAFA;
+	background-image: -moz-linear-gradient(top, white, #F2F2F2);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#F2F2F2));
+	background-image: -webkit-linear-gradient(top, white, #F2F2F2);
+	background-image: -o-linear-gradient(top, white, #F2F2F2);
+	background-image: linear-gradient(to bottom, white, #F2F2F2);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+	border: 1px solid #D4D4D4;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-border-top-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	border-top-left-radius: 0px 0px;
+	
+	-webkit-border-top-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	border-top-right-radius: 0px 0px;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+	padding: 10px;
+}
+	

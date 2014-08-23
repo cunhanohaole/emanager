@@ -1,0 +1,17 @@
+﻿/*
+CSS file meant to override the jqGrid css without changing it.
+Making easier to update the framework in the future
+*/
+.ui-jqgrid .ui-pg-selbox {
+	padding: 0px;
+	width: auto;
+	height: 20px;
+}
+.ui-jqgrid .ui-pg-input {
+	width: auto;
+	padding: 0;
+	width: 36px;
+	height: 18px;
+	vertical-align: baseline;
+	text-align: center;
+}

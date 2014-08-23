@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <sec:http auto-config="true" access-denied-page="/accessdenied" once-per-request="false" use-expressions="true">
+        <sec:form-login login-processing-url="/j_spring_security_check"
+                        login-page="/login"
+                        default-target-url="/index"
+                        always-use-default-target="false"
+                        authentication-failure-url="/login?login_error=1"/>
+     	<sec:intercept-url pattern="/**/scripts/**" filters="none"/>
+     	<sec:intercept-url pattern="/**/ckeditor/**" filters="none"/>
+		<sec:intercept-url pattern="/**/images/**" filters="none"/>
+		<sec:intercept-url pattern="/**/css/**" filters="none"/>
+		<sec:intercept-url pattern="/**/js/**" filters="none"/>
+		<sec:intercept-url pattern="/**/img/**" filters="none"/>
+		<sec:intercept-url pattern="/**/common/**" filters="none"/>
+        <sec:intercept-url pattern="/**/login.jsp" filters="none"/>
+        <sec:intercept-url pattern="/**/accessdenied.jsp" filters="none"/>
+        <sec:intercept-url pattern="/**/login" filters="none"/>
+        <sec:intercept-url pattern="/**/accessdenied" filters="none"/>
+        <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
+        <sec:intercept-url pattern="/users/**" access="ROLE_ADM" />
+        <sec:logout invalidate-session="true" logout-success-url="/login"/>
+    </sec:http>
+    
+
+    <sec:authentication-manager alias="authenticationManager">
+	    <sec:authentication-provider>
+	        <sec:jdbc-user-service data-source-ref="emanagerDataSource" 
+	                               users-by-username-query="SELECT rtrim(username) as 'username', rtrim(password) as 'password',
+															CASE
+															  WHEN active = 1 THEN 'true'
+															  ELSE 'false'
+															END as 'enabled'
+															FROM user WHERE username = ?"
+									authorities-by-username-query="SELECT rtrim(u.username) as 'username', rtrim(uhr.role) as 'authority'
+																	FROM user u
+																		join user_has_role uhr on u.username = uhr.username
+																	WHERE u.username = ?"/>
+	    </sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<!-- <sec:authentication-manager>
+		<sec:authentication-provider>
+	    	<sec:user-service>
+				<sec:user name="cunha" password="123456" authorities="ROLE_USER" />
+				<sec:user name="marcelo" password="marcelo@123" authorities="ROLE_USER" />
+				<sec:user name="rosana" password="rosana@123" authorities="ROLE_USER" />
+				<sec:user name="sergio" password="sergio@123" authorities="ROLE_USER" />
+	    	</sec:user-service>
+	  	</sec:authentication-provider>
+	</sec:authentication-manager> -->
+</beans>

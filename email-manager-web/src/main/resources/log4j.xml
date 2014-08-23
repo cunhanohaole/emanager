@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+    
+	<appender name="EMANAGER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="Threshold" value="DEBUG"/>
+        <param name="File" value="${user.home}/apps/emanager/logs/email-manager.log"/>
+        <param name="Append" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] [%5.5p] %-c %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out"/>
+		<layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] [%5.5p] %-c %m%n"/>
+        </layout>
+	</appender>
+
+    <appender name="EMANAGER-ASYNC" class="org.apache.log4j.AsyncAppender">
+        <appender-ref ref="EMANAGER" />
+    </appender>
+    
+    <category name="br.com.tscpontual" additivity="false">
+        <priority value="INFO"/>
+        <appender-ref ref="EMANAGER-ASYNC"/>
+    </category>
+  
+	
+	<category name="org.apache.commons">
+		<priority value="info" />
+		<appender-ref ref="EMANAGER-ASYNC"/>
+	</category>
+	<category name="org.springframework">
+		<priority value="info" />
+		<appender-ref ref="EMANAGER-ASYNC"/>
+	</category>
+	<category name="org.springframework.security">
+		<priority value="info" />
+		<appender-ref ref="EMANAGER-ASYNC"/>
+	</category>
+	<category name="org.springframework.beans.factory.support">
+		<priority value="info" />
+		<appender-ref ref="EMANAGER-ASYNC"/>
+	</category>
+	<category name="org.hibernate">
+		<priority value="info" />
+		<appender-ref ref="EMANAGER-ASYNC"/>
+	</category>
+
+</log4j:configuration>

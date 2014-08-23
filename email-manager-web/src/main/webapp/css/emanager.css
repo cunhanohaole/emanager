@@ -1,0 +1,8 @@
+.mandatory{
+	background: url("../img/asterisk.png") no-repeat;
+	background-position: left center;
+	display: inline-block;
+	height: 14px;
+	vertical-align: text-top;
+	width: 14px;
+}

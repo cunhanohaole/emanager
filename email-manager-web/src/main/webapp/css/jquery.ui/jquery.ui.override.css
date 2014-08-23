@@ -1,0 +1,26 @@
+﻿/*make the font compatible with the Bootstrap*/
+.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+/* getting space back*/
+.ui-dialog .ui-dialog-content {
+	padding: 2px;
+}
+.ui-tabs .ui-tabs-panel {
+	padding: 2px;
+}
+/*Accordion*/
+/*Headers*/
+.ui-accordion .ui-accordion-header a {
+	background-color: whiteSmoke;
+	border-bottom: 1px solid #EEE;
+}
+/*Content*/
+.ui-accordion .ui-accordion-content {
+	padding: 0.5em 1em;
+}
+/*spinning wheel inside the input element*/
+.ui-autocomplete-loading {
+    background: white url("smoothness/images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
