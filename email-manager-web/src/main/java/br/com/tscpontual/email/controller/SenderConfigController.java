@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -42,15 +43,28 @@ public class SenderConfigController extends BaseController {
         return response;
     }
 
-    @RequestMapping(value = "listSendersForUser", method = POST)
+    @RequestMapping(value = "createNewSenderConfig", method = POST)
     @ResponseBody
-    public ScreenResponse createNewSenderConfig(@RequestParam(value = "emailAddress") String emailAddress) {
-        String userName = SecurityHelper.getUserName();
+    public ScreenResponse createNewSenderConfig(
+            @RequestParam(value = "userName", required = false) String userName,
+            @RequestParam(value = "emailAddress") String emailAddress) {
+        if(StringUtils.isBlank(userName)) {
+            userName = SecurityHelper.getUserName();
+        }
         senderConfigManager.createNewSenderConfig(userName, emailAddress);
         return new ScreenResponse("Secesso!", "Novo enviador criado com sucesso!");
     }
 
-    @RequestMapping(value = "deleteSenderConfig", method = POST)
+    @RequestMapping(value = "editSenderConfig", method = POST)
+    @ResponseBody
+    public ScreenResponse createNewSenderConfig(
+            @RequestParam(value = "senderConfigId") Integer senderConfigId,
+            @RequestParam(value = "senderConfigFrom") String senderConfigFrom) {
+        senderConfigManager.updateSenderConfig(senderConfigId, senderConfigFrom);
+        return new ScreenResponse("Secesso!", "Enviador editado criado com sucesso!");
+    }
+
+    @RequestMapping(value = "deleteSenderConfig", method = DELETE)
     @ResponseBody
     public ScreenResponse deleteSenderConfig(@RequestParam(value = "senderConfigId") Integer senderConfigId) {
         senderConfigManager.deleteSenderConfig(senderConfigId);
@@ -59,7 +73,7 @@ public class SenderConfigController extends BaseController {
 
     @RequestMapping(value = "sendersManagement", method = GET)
     public String loadSendersManagement() {
-        return "sender/senderManagement";
+        return "sender/SenderManagement";
     }
 
 }

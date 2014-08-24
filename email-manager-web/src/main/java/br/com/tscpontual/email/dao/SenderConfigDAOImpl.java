@@ -2,6 +2,8 @@ package br.com.tscpontual.email.dao;
 
 import br.com.tscpontual.user.model.SenderConfig;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,6 +23,7 @@ public class SenderConfigDAOImpl implements SenderConfigDAO {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public SenderConfig persistSenderConfig(SenderConfig senderConfig) {
         return em.merge(senderConfig);
     }

@@ -40,5 +40,9 @@ public class ScreenResponse {
 	public String getMessage() {
 		return message;
 	}
+
+    public String getNotifyType() {
+        return isError() ? "error" : "success";
+    }
 	
 }

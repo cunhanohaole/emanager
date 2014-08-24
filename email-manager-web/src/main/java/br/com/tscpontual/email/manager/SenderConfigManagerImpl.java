@@ -5,6 +5,8 @@ import br.com.tscpontual.user.dao.UserDAO;
 import br.com.tscpontual.user.model.SenderConfig;
 import br.com.tscpontual.user.model.SenderConfigFactory;
 import br.com.tscpontual.user.model.User;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,11 +35,14 @@ public class SenderConfigManagerImpl implements SenderConfigManager {
     }
 
     @Override
-    public SenderConfig updateSenderConfig(SenderConfig senderConfig) {
+    public SenderConfig updateSenderConfig(Integer senderConfigId, String emailFrom) {
+        SenderConfig senderConfig = getSenderConfig(senderConfigId);
+        senderConfig.setFrom(emailFrom);
         return senderConfigDAO.persistSenderConfig(senderConfig);
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteSenderConfig(Integer senderConfigId){
         SenderConfig senderConfig = getSenderConfig(senderConfigId);
         senderConfigDAO.deleteSenderConfig(senderConfig);

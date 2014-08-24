@@ -4,6 +4,10 @@ EManager.SenderManagement = {
 			EManager.General.loadUsers("#senderManagementUser");
 			EManager.SenderManagement.loadTable();
 			EManager.SenderManagement.setupSenderManagementUserOnClick();
+			EManager.SenderManagement.editSenderConfig();
+			EManager.SenderManagement.deleteSenderConfig();
+			EManager.SenderManagement.setupShowNewSenderModal();
+			EManager.SenderManagement.setupSaveNewSenderConfig();
 		},
 
 		loadTable : function() {
@@ -47,7 +51,10 @@ EManager.SenderManagement = {
 						$(this).setGridWidth(parent.innerWidth() - 5, true);
 				},
 				onCellSelect : function(rowId) {
-					console.log('onCellSelect')
+                    var senderConfigData = $("#sendersGrid").getRowData(rowId);
+                    $("#editSenderConfigId").val(senderConfigData.id);
+                    $("#editSenderConfigFrom").val(senderConfigData.from);
+					$("#editSenderDetail").modal();
 				}
 			});
 		},
@@ -56,7 +63,86 @@ EManager.SenderManagement = {
 		    $("#senderManagementUser").change(function() {
 		        EManager.SenderManagement.loadTable();
 		    });
-		}
+		},
+
+		editSenderConfig : function() {
+            $("#editSenderConfigBtn").click(function() {
+                var id = $("#editSenderConfigId").val();
+                var from = $("#editSenderConfigFrom").val();
+
+                if(!isValidEmailAddress(from)) {
+                    notifyMessage("Erro!", "Por favor informe um edereço de email válido!","error",true);
+                    return;
+                }
+
+                var dataString = 'senderConfigId='+ id + '&senderConfigFrom=' + from;
+                $.ajax({
+                    type: "POST",
+                    url: "/email-manager/senderConfig/editSenderConfig",
+                    data: dataString,
+                    async:   false,
+                    beforeSend: function() {
+                    },
+                    success: function(result) {
+                        notifyMessage(result.title, result.message, result.notifyType, true);
+                        $('#editSenderDetail').modal("hide");
+                        EManager.SenderManagement.loadTable();
+                    }
+                });
+            });
+        },
+
+        setupShowNewSenderModal : function() {
+            $("#newSenderConfigBtn").click(function() {
+                EManager.General.loadUsers("#newSenderUser");
+                $("#newSenderModal").modal();
+            });
+        },
+
+        setupSaveNewSenderConfig : function() {
+            $("#saveNewSenderConfigBtn").click(function() {
+                var userName = $("#newSenderUser").val();
+                var from = $("#newSenderConfigFrom").val();
+
+                if(!isValidEmailAddress(from)) {
+                    notifyMessage("Erro!", "Por favor informe um edereço de email válido!","error",true);
+                    return;
+                }
+
+                var dataString = 'userName' + userName + '&emailAddress=' + from;
+                $.ajax({
+                    type: "POST",
+                    url: "/email-manager/senderConfig/createNewSenderConfig",
+                    data: dataString,
+                    async:   false,
+                    success: function(result) {
+                        notifyMessage(result.title, result.message, result.notifyType, true);
+                        $('#newSenderModal').modal("hide");
+                        EManager.SenderManagement.loadTable();
+                    }
+                });
+            });
+        },
+
+        deleteSenderConfig : function() {
+            $("#deleteSenderConfigBtn").click(function() {
+                var id = $("#editSenderConfigId").val();
+                var dataString = 'senderConfigId='+ id;
+                $.ajax({
+                    type: "DELETE",
+                    url: "/email-manager/senderConfig/deleteSenderConfig?senderConfigId=" + id,
+                    data: dataString,
+                    async:   false,
+                    beforeSend: function() {
+                    },
+                    success: function(result) {
+                        notifyMessage(result.title, result.message, result.notifyType, true);
+                        $('#editSenderDetail').modal("hide");
+                        EManager.SenderManagement.loadTable();
+                    }
+                });
+            });
+        }
 
 }
 

@@ -11,7 +11,7 @@ public interface SenderConfigManager {
 
     SenderConfig createNewSenderConfig(String username, String emailAddress);
 
-    SenderConfig updateSenderConfig(SenderConfig senderConfig);
+    SenderConfig updateSenderConfig(Integer senderConfigId, String emailFrom);
 
     void deleteSenderConfig(Integer senderConfigId);
 

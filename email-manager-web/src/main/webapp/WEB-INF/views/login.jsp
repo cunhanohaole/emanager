@@ -52,10 +52,10 @@
 	</div>
 	<footer class="container pagination-centered footer">
 		<div class="row-fluid" align="center">
-			<b> Build: 2.0.4</b>
+			<b> Build: 3.0.0</b>
 		</div>
 		<div class="row-fluid" align="center">
-			© F-Alves Information Technology.
+			F-Alves Information Technology.
 		</div>
 	</footer>
 </body>
