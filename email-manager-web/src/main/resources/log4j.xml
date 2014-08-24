@@ -4,7 +4,8 @@
     
 	<appender name="EMANAGER" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="Threshold" value="DEBUG"/>
-        <param name="File" value="${user.home}/apps/emanager/logs/email-manager.log"/>
+        <!--<param name="File" value="${user.home}/apps/emanager/logs/email-manager.log"/>-->
+        <param name="File" value="/home/cunha/apps/emanager/logs/email-manager.log"/>
         <param name="Append" value="true"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%t] [%5.5p] %-c %m%n"/>
