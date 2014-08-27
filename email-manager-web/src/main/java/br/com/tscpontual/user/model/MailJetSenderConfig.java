@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 public class MailJetSenderConfig implements SenderConfigFactory {
 
 	@Override
-	public SenderConfig create(String from) {
-		return new SenderConfig(getUsername(), getPassword(), getHostName(), from, getMailSmtpPort(), getMailSmtpAuth());
+	public SenderConfig create(User user, String from) {
+		return new SenderConfig(user, getUsername(), getPassword(), getHostName(), from, getMailSmtpPort(), getMailSmtpAuth());
 	}
 	
 	private String getUsername(){

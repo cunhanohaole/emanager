@@ -10,9 +10,9 @@ import br.com.tscpontual.user.model.SenderConfig;
 
 public interface EMailManager {
 
-	void sendEmail(String groupId, String subject, String body, String additionalEmails, List<Attachment> attachments) throws TechnicalException;
+    void sendEmail(Integer senderId, Integer groupId, String subject, String body, String additionalEmails, List<Attachment> attachments) throws TechnicalException;
 
-	List<Email> listSentEmails(int page, int numberOfRowsPerPage);
+    List<Email> listSentEmails(Integer senderConfigId, int page, int numberOfRowsPerPage);
 
 	Email loadEmail(int emailId);
 
@@ -20,7 +20,7 @@ public interface EMailManager {
 
 	void sendEmail(Email email, SenderConfig senderConfig);
 
-	void forwardEmail(Integer emailId, Integer newGroupId) throws TechnicalException;
+    void forwardEmail(Integer senderId, Integer emailId, Integer newGroupId) throws TechnicalException;
 
 	void checkInvalidSentEmails() throws TechnicalException;
 

@@ -18,6 +18,13 @@ public class ScreenResponse {
 		this.message = message;
 	}
 
+    public ScreenResponse(String title, String message) {
+        this.error = false;
+        this.friendlyError = false;
+        this.title = title;
+        this.message = message;
+    }
+
 	public boolean isError() {
 		return error;
 	}
@@ -33,5 +40,9 @@ public class ScreenResponse {
 	public String getMessage() {
 		return message;
 	}
+
+    public String getNotifyType() {
+        return isError() ? "error" : "success";
+    }
 	
 }

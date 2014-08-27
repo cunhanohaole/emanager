@@ -13,6 +13,7 @@ import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -30,6 +31,7 @@ import br.com.tscpontual.util.SecurityHelper;
 public class EmailDAOImpl implements EmailDAO {
 
 	private static final String ATTACHMENTS_DIR = "/home/cunha/apps/emanager/attachments/";
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -95,10 +97,19 @@ public class EmailDAOImpl implements EmailDAO {
 	}
 
 	@Override
-	public List<Email> listSentEmails(String user, int firstResult, int maxResults) {
-		//return em.createQuery("select e from Email e where e.userStamp = :user", Email.class).setParameter("user", user).getResultList();
-		return em.createQuery("select e from Email e where e.userStamp = :user order by e.createdTimeStamp desc", Email.class).setParameter("user", user).setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
-	}
+	public List<Email> listSentEmails(String username, Integer senderConfigId, int firstResult, int maxResults) {
+        StringBuilder query = new StringBuilder("select e from Email e where e.senderConfig.user.username = :user");
+        if(senderConfigId != null) {
+            query.append(" and e.senderConfig.id = :senderConfigId");
+        }
+        query.append(" order by e.createdTimeStamp desc");
+        TypedQuery<Email> typedQuery = em.createQuery(query.toString(), Email.class);
+        typedQuery.setParameter("user", username);
+        if(senderConfigId != null) {
+            typedQuery.setParameter("senderConfigId", senderConfigId);
+        }
+        return typedQuery.setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    }
 	
 	@Override
 	public int getSentEmailsNumberOfRecords(String user){

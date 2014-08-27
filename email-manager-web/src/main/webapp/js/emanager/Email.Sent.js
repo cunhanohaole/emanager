@@ -5,16 +5,19 @@ EManager.SentEmails = {
 		init : function() {
 			EManager.SentEmails.loadTable();
 			EManager.SentEmails.forwardEmail();
+			EManager.General.loadSendersForUser("#sentEmailsSenders");
+			EManager.SentEmails.setupFromFilterOnClick();
 		},
 
 		loadTable : function() {
+		    $("#sentEmailsGrid").jqGrid('GridUnload');
+		    var senderId = $("#sentEmailsSenders").val();
 			jQuery("#sentEmailsGrid").jqGrid({
-				url:"/email-manager/email/listSentEmails?rowsPerPage=" + EManager.SentEmails.numberOfRowsPerPage,
+				url:"/email-manager/email/listSentEmails?senderConfigId=" + senderId + "&rowsPerPage=" + EManager.SentEmails.numberOfRowsPerPage,
 				datatype: "json",
 				mtype: 'GET',
 				loadError: function(){},
 				height: 'auto',
-				colNames:['Assunto', 'Para', 'Data', 'Contem anexo?', '', '', ''],
 				gridview:false,
 				afterInsertRow : function(rowid, rowdata, rowelem){
 					if(rowdata.statusFailure) {
@@ -24,8 +27,10 @@ EManager.SentEmails = {
 						$("#sentEmailsGrid #" + rowid).find("td").addClass("alert-success");
 					}
 				},
+				colNames:['Assunto', 'De', 'Para', 'Data', 'Contem anexo?', '', '', ''],
 				colModel: [
 					 {name:'subject', index:'subject', sortable: 'true'},
+					 {name:'senderConfig.from', index:'senderConfig.from', sortable: 'true', width: 70},
 				     {name:'addressGroup.title', index:'addressGroup.title', sortable: 'true', width: 70},
 				     {name:'createdTimeStamp', index:'createdTimeStamp', sortable: 'true', width: 40, formatter: formatToJavaToStringDate},
 				     {name:'containAttachments', index:'containAttachments', sortable: 'false', width: 20, formatter: formatYesOrNo},
@@ -85,6 +90,12 @@ EManager.SentEmails = {
 				var emailId = $('#emailId').val();
 				$("#newEmailLink").trigger("click", emailId);
 			});
+		},
+
+		setupFromFilterOnClick : function () {
+		    $("#sentEmailsSenders").live("change", function (){
+                EManager.SentEmails.loadTable();
+		    });
 		}
 
 }

@@ -69,14 +69,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span12">
-				<button id="editUserBtn" class="btn btn-primary" type="button">Confirmar</button>
-			</div>
-		</div>
-		
 	</div>
 	<div class="modal-footer">
+	    <button id="editUserBtn" class="btn btn-primary" type="button">Salvar</button>
 		<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
 	</div>
 </div>

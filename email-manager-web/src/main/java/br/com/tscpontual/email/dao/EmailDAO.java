@@ -12,8 +12,8 @@ public interface EmailDAO {
 	Email persistEmail(Email email);
 	
 	Email persistAttachments(List<Attachment> attachments, Email email) throws TechnicalException;
-	
-	public List<Email> listSentEmails(String user, int firstResult, int maxResults);
+
+    List<Email> listSentEmails(String username, Integer senderConfigId, int firstResult, int maxResults);
 
 	Email loadEmail(int emailId);
 

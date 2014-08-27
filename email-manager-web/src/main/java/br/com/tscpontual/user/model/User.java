@@ -35,11 +35,11 @@ public class User implements Serializable {
 	private boolean active;
 
 	private String password;
-	
-	//bi-directional many-to-one association to SenderConfig
-	@ManyToOne
-	@JoinColumn(name="sender_config_id")
-	private SenderConfig senderConfig;
+
+    //bi-directional many-to-one association to SenderConfig
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<SenderConfig> senders;
 
 	//bi-directional many-to-many association to Role
 	@ManyToMany
@@ -106,14 +106,6 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
-	public SenderConfig getSenderConfig() {
-		return senderConfig;
-	}
-
-	public void setSenderConfig(SenderConfig senderConfig) {
-		this.senderConfig = senderConfig;
-	}
-
 	public Set<AddressGroup> getAddressGroups() {
 		return addressGroups;
 	}
@@ -130,4 +122,11 @@ public class User implements Serializable {
 		this.signatures = signatures;
 	}
 
+    public List<SenderConfig> getSenders() {
+        return senders;
+    }
+
+    public void setSenders(List<SenderConfig> senders) {
+        this.senders = senders;
+    }
 }

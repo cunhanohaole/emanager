@@ -23,10 +23,21 @@
 
 <div class="row-fluid">
 	<div class="span12">
+	    <div class="row-fluid">
+	        <div class="span4">
+	            <div class="control-group">
+                    <label class="control-label">De:</label>
+                    <div class="controls">
+                        <select id="senderList" class="span12">
+                        </select>
+                    </div>
+                </div>
+	        </div>
+	    </div>
 		<div class="row-fluid">
 			<div class="span4">
 				<div class="control-group">
-					<label class="control-label">Grupo:</label>
+					<label class="control-label">Para:</label>
 					<div class="controls">
 						<select id="newEmailGroupList" class="span12">
 						</select>
@@ -35,7 +46,7 @@
 			</div>
 			<div class="span8">
 				<div class="control-group">
-					<label class="control-label">Adicionais:</label>
+					<label class="control-label">Destinos adicionais:</label>
 					<div class="controls">
 						<input id="aditionalEmails" type="text" class="span12" placeholder="Deseja adicionar outros emails? Separados por ; (Ex: teste@teste.com.br;teste2@teste.com.br)">
 					</div>

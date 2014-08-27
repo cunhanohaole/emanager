@@ -1,28 +1,11 @@
 EManager.UsersContactAccess = {
 		
 		init : function() {
-			EManager.UsersContactAccess.loadUsers();
+			EManager.General.loadUsers("#contactAccessUsers");
 			EManager.UsersContactAccess.loadAllContactGroups();
 			EManager.UsersContactAccess.onSelectUser();
 			EManager.UsersContactAccess.saveContactAccess();
 			EManager.UsersContactAccess.populateCotactAccess();
-		},
-
-		loadUsers : function() {
-			$.ajax({
-	            type: "GET",
-	            url: "/email-manager/users/list",
-	            dataType: "json",
-	            async: false,
-	            success: function(result)
-	            {
-	            	var users = result.rows;
-	                for(i in users) {
-	                	var username = users[i].username;
-	                	$("#contactAccessUsers").append(new Option(username, username));
-	                }
-	            }
-	        });
 		},
 		
 		listUserGroups : function(username) {

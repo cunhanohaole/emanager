@@ -4,6 +4,7 @@ EManager.NewEmail = {
 			EManager.NewEmail.addFile();
 			EManager.NewEmail.removeAttachment();
 			EManager.General.loadGroupsForUser("#newEmailGroupList");
+			EManager.General.loadSendersForUser("#senderList");
 			EManager.NewEmail.sendEmail();
 			EManager.NewEmail.loadSignatures();
 			EManager.NewEmail.insertSignature();
@@ -95,6 +96,7 @@ EManager.NewEmail = {
 		
 		sendEmail : function() {
 			$("#sendEmailBtn").click(function() {
+			    var senderId = $("#senderList").val();
 				var invalidEmails = EManager.NewEmail.getInvalidEmails();
 				if(invalidEmails != null){
 					notifyMessage("Erro!", "Os seguintes enderecos de email sao invalidos: " + invalidEmails + "","error",true);
@@ -112,7 +114,7 @@ EManager.NewEmail = {
 				}
 				var groupId = $("#newEmailGroupList").val();
 				var additionalEmails = $("#aditionalEmails").val();
-				var dataString = 'groupId='+ groupId + '&additionalEmails=' + additionalEmails + '&emailSubject=' + subject + '&emailBody=' + encodeURIComponent(emailBody);
+				var dataString = 'senderId=' + senderId + '&groupId='+ groupId + '&additionalEmails=' + additionalEmails + '&emailSubject=' + subject + '&emailBody=' + encodeURIComponent(emailBody);
 				$.ajax({
 					type: "POST",
 					url: "/email-manager/email/send",

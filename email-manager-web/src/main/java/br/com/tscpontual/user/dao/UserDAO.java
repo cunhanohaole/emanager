@@ -26,5 +26,6 @@ public interface UserDAO {
 	Signature loadSignature(Integer signatureId);
 
 	Role loadRole(String role);
-	
+
+    SenderConfig loadSenderConfig(Integer senderConfigId);
 }

@@ -11,6 +11,19 @@
 <legend>E-mails enviados</legend>
 
 <div class="row-fluid">
+    <div class="span4">
+        <div class="control-group">
+            <label class="control-label">De:</label>
+            <div class="controls">
+                <select id="sentEmailsSenders" class="span12">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
 	<table id="sentEmailsGrid">
 	</table>
 	<div id="sentEmailsGridPager"></div> 
