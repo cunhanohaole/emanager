@@ -54,6 +54,7 @@ public class EmailManagerImpl implements EMailManager {
 		SenderConfig senderConfig = senderConfigDAO.getSenderConfig(senderId);
 		if(senderConfig != null){
 			Email email = new Email();
+            email.setSenderConfig(senderConfig);
 			email.setAddressGroup(new AddressGroup(groupId));
 			email.setSubject(subject);
 			email.setBody(body.getBytes());
